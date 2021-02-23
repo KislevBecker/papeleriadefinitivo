@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Mis materiales agregados";
+}
+
+@*datatables*@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+
+
+<h2 class="text-primary mt-5">@ViewBag.Title</h2>
+<hr />
+@*<p>@Html.ActionLink("Agregar nuevo material a la lista", "Create")</p>*@
+
+<div class="c-table">
+    <div class="table-responsive table-stripered ctable-hijo">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Grupo de material</th>
+                    <th>Cantidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Session["carrito"] != null)
+                {
+                    foreach (var item in Session["carrito"] as List<ProgramaDeRequisas.Models.ClsShoppingCart>)
+                    {
+                        <tr>
+                            <td>@item.tBL_Materiales_X_Sociedad.Codigo_material</td>
+                            <td>@item.tBL_Materiales_X_Sociedad.Descripcion</td>
+                            <td>@item.Cantidad</td>
+                            <td>
+                                @Html.ActionLink("Eliminar", "Del", "TBL_Materiales_X_Sociedad", new { id = item.tBL_Materiales_X_Sociedad.ID }, null)
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Continuar requisa", "Index", null, null) | @Html.ActionLink("Finalizar Finalizar requisa", "FinalizarCompra", null, null)
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+
+
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.bootstrap4.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+
+
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                },
+                "dom": 'Bfrtip',
+                //para que muestre el length menu                 "dom": 'Blfrtip',
+                "buttons": [
+                    {
+                        extend: 'excel',
+                        className: 'btn btn-default rounded-0',
+                        text: '<i class="far fa-file-excel"></i> Exportar a excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        className: 'btn btn-default rounded-0',
+                        text: '<i class="far fa-file-pdf" title= "Guardar como PDF"></i> Pdf',
+                        orientation: 'landscape',
+                        pageSize: 'LEGAL',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        className: 'btn btn-default rounded-0',
+                        text: '<i class="fas fa-file-csv" title= "Guardar como CSV"></i> CSV',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        className: 'btn btn-default rounded-0',
+                        text: '<i class="fas fa-print"></i> Imprimir tabla',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+                        }
+                    }
+                ]
+            });
+        });
+
+    </script>
+}
+
+
+

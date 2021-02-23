@@ -1,0 +1,195 @@
+﻿@model ProgramaDeRequisas.Models.TBL_UsuariosSolicitantes
+
+@{
+    ViewBag.Title = "Crear usuario";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @*<h4>TBL_UsuariosSolicitantes</h4>*@
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-row">
+                        <label><span class="badge badge-pill badge-secondary">1</span> Datos del nuevo usuario:</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.nombreSolicitante, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del usuario" } })
+                                @Html.ValidationMessageFor(model => model.nombreSolicitante, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.pass, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contraseña a asignar" } })
+                                @Html.ValidationMessageFor(model => model.pass, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("Id_Tipo", null, "---Seleccione tipo de solicitante---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Id_Tipo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-row">
+                    <label><span class="badge badge-pill badge-secondary">2</span> Sociedad, Centro, Almacén y CeCo al que pertenece:</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("Id_Sociedades", null, "---Seleccione una sociedad---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Id_Sociedades, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Centro", null, "---Seleccione un centro---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Centro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Almacen", null, "---Seleccione un almacén---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Almacen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_CECO", null, "---Seleccione CeCo---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_CECO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-row">
+                    <label><span class="badge badge-pill badge-secondary">3</span> Estado y rol asignado al usuario:</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Estado", null, "---Seleccione estado---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Estado, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Rol", null, "---Seleccione un rol---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Rol, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Crear usuario" class="btn btn-outline-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver a la lista", "Index")
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de Sociedades
+            $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetSociedades', function (data) {
+                $.each(data, function () {
+                    $('#Id_Sociedades').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de Centtos
+            $("#Id_Sociedades").bind('click', function () {
+                var id = $('select[id=Id_Sociedades]').val();
+                $('#ID_Centro').empty();
+                $('#ID_Centro').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCentros', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#ID_Centro').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información Almacenes
+            $("#ID_Centro").bind('click', function () {
+                var id = $('select[id=ID_Centro]').val();
+                $('#ID_Almacen').empty();
+                $('#ID_Almacen').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetAlmacenes', { centro_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#ID_Almacen').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información de Ceco
+            $("#Id_Sociedades").bind('click', function () {
+                var id = $('select[id=Id_Sociedades]').val();
+                //$('#CeCoID').empty();
+                //$('#CeCoID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCeco', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#ID_CECO').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+
+
+    </script>
+}
+
+

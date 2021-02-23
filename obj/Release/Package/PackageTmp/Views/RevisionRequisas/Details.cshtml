@@ -1,0 +1,74 @@
+﻿@model ProgramaDeRequisas.Models.TBL_Material
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TBL_Material</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GrupoArticulos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GrupoArticulos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_Material)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_Material)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Cad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Cad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Disponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Disponible)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBL_Material_X_Almacen.Lote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBL_Material_X_Almacen.Lote)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

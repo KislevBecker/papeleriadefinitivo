@@ -1,0 +1,86 @@
+﻿@*@model IEnumerable<ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes>*@
+@model IEnumerable<ProgramaDeRequisas.Models.ClsMaterialesAgregadosIndex>
+
+@{
+    ViewBag.Title = "Historial de requisas";
+}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<h4 class="mt-5">@ViewBag.Title</h4>
+<hr />
+<p>
+    @Html.ActionLink(" Iniciar requisa", "filtrarLista")
+</p>
+<div class="c-table">
+    <div class="table-responsive table-stripered ctable-hijo">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    @*<th>Sociedad</th>
+                    <th>Centro</th>
+                    <th>CeCo</th>
+                    <th>Total (Lps.)</th>
+                    <th>Presupuesto</th>*@
+                    <th>Cantidad solicitada</th>
+                    <th>Fecha de creación</th>
+                    @*<th>Estado actual</th>
+                    <th>Observaciones</th>*@
+                    @*<th>Acciones</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.MATNR)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MAKTX)</td>
+                        <td > @Html.DisplayFor(modelItem => item.Cantidad_Solicitada) </td>
+                        <td>                        @Html.DisplayFor(modelItem => item.Fecha_Solicitud)</td>
+                        @*<td>LOGISTICA</td>
+                        <td style="text-align:right">2,400.00</td>
+                        <td></td>
+                        <td>17/10/2020</td>
+                        <td>Finalizado</td>
+                        <td>Requisa terminada</td>*@
+                        @*<td>
+                            @Html.ActionLink("Detalles", "Details", new { /* id=item.PrimaryKey */ })
+                        </td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts {
+                            @Scripts.Render("~/bundles/jqueryval")
+
+                            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+                        
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+}

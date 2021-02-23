@@ -1,0 +1,288 @@
+﻿@model IEnumerable<ProgramaDeRequisas.Models.TBL_RevisionMat_Agregados>
+
+@{
+    ViewBag.Title = "Revisión de requisas";
+}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<h4 class="mt-3 text-primary">@ViewBag.Title</h4>
+<hr />
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+
+@*Formulario modal agregado al 16012021*@
+<div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5" style="color: rebeccapurple;">Editar item de requisa</h4>
+                <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Código</label>
+                            <input type="text" id="formMATNREdit" class="form-control validate" readonly>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Descripción</label>
+                            <input type="text" id="formMAKTXEdit" class="form-control validate" readonly>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Cantidad solicitada</label>
+                            <input type="text" id="formCantidadEdit" class="form-control validate" readonly>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="md-form mb-3">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Cantidad aprobada</label>
+                            <input type="text" id="formCantidadAprobEdit" class="form-control validate">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md-form mb-3">
+                    <label data-error="wrong" data-success="right" for="formNameEdit">Estado actual</label>
+                    <div class="row">
+                        <div class=" col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opciones" id="opciones_1" value="opcion_1" checked>
+                                    En Proceso
+                                </label>
+                            </div>
+                        </div>
+                        <div class=" col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opciones" id="opciones_2" value="opcion_2">
+                                    Aprobado
+                                </label>
+                            </div>
+                        </div>
+                        <div class=" col-md-4">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="opciones" id="opciones_3" value="opcion_3">
+                                    Rechazado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="text" id="formEstadoEdit" class="form-control validate">
+                </div>
+                <div class="md-form mb-5">
+                    <label data-error="wrong" data-success="right" for="formNameEdit">Comentario</label>
+                    <textarea rows="3" id="formComentarioEdit" class="form-control validate"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" id="Editar" onclick="return Editar();">
+                    Guardar
+                    <i class="fas fa-paper-plane-o ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@*hasta aqui*@
+
+
+<div class="c-table">
+    <div class="table-responsive table-stripered ctable-hijo">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>
+                        Código
+                    </th>
+                    <th>
+                        Descripción
+                    </th>
+                    <th>
+                        Sociedad
+                    </th>
+                    <th>
+                        Centro
+                    </th>
+                    <th>
+                        Centro de costo
+                    </th>
+                    <th>
+                        Almacén
+                    </th>
+                    <th>
+                        Cantidad solicitada
+                    </th>
+                    <th>
+                        Cantidad aprobada
+                    </th>
+                    <th>
+                        Fecha de solicitud
+                    </th>
+                    <th>
+                        Fecha de revisión
+                    </th>
+                    <th>
+                        Solicitante
+                    </th>
+                    <th>
+                        Estado actual
+                    </th>
+                    <th>
+                        Comentario
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MATNR)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MAKTX)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sociedad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Centro)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Ceco)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Almacen)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_Solicitada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad_Aprobada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Solicitud)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fecha_Cambio_Estado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario_Solicitante)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Estado)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comentario)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.ID_Revision }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ID_Revision }) |*@
+                            <div class="text-center buttonEditWrapper mb-1">
+                                <button class="btn btn-info btn-rounded btn-sm buttonEdit text-white" data-toggle="modal" data-target="#modalEdit" /><a class="text-white ancla"><i class="glyphicon glyphicon-edit ml-1 text-white"></i> Editar requisa</a>
+                            </div>
+                            <div class="mb-1">
+                                @Html.ActionLink("  Eliminar ", "Delete", new { id = item.ID_Revision }, new { @class = "btn btn-danger glyphicon glyphicon-trash" })
+                            </div>
+                            <div class="mb-1">
+                                @Html.ActionLink("  Procesar", "ProcesarMIGO", new { id = item.ID_Revision }, new { @class = "btn btn-warning glyphicon glyphicon-check" })
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+<script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+
+
+        function Editar()
+        {
+            var MATNR = $("#formMATNREdit").val();
+            var Cantidad = $("#formCantidadEdit").val();
+            var MAKTX = $("#formMAKTXEdit").val();
+            var CantidadAprob = $("#formCantidadAprobEdit").val();
+            //var Estado = $("#formEstadoEdit").val();
+            //var Comentario = $("#formComentarioEdit").val();
+
+            if (CantidadAprob == "" || CantidadAprob == null || CantidadAprob == 0) {
+                swal({
+                    title: "Error alprocesar",
+                    text: "¡La cantidad debe tener un valor y debe ser distinto a cero!",
+                    icon: "error", //built in icons: success, warning, error, info
+                    timer: 5000, //timeOut for auto-close
+                });
+            }
+            else
+            {
+                location.href = '@Url.Action("Edit", "MaterialesAgregados")?MATNR=' + MATNR + '&Cantidad=' + Cantidad + '&MAKTX=' + MAKTX + '&CantidadAprob=' + CantidadAprob;
+            }
+        }
+
+    $('#table_id tr').on('click', function () {
+        var MATNR = $(this).find('td:nth-child(1)').html();
+        var MAKTX = $(this).find('td:nth-child(2)').html();
+        var Cantidad = $(this).find('td:nth-child(7)').html();
+        var CantidadAprob = $(this).find('td:nth-child(8)').html();
+        var Estado = $(this).find('td:nth-child(12)').html();
+        var Comentario = $(this).find('td:nth-child(13)').html();
+
+        $("#formMATNREdit").val(MATNR.trim());
+        $("#formCantidadEdit").val(Cantidad.trim());
+        $("#formCantidadAprobEdit").val(CantidadAprob.trim());
+        $("#formMAKTXEdit").val(MAKTX.trim());
+        $("#formEstadoEdit").val(Estado.trim());
+        $("#formComentarioEdit").val(Comentario.trim());
+
+    });
+
+
+</script>
+}

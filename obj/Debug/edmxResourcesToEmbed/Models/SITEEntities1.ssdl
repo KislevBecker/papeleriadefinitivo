@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SITEPLUSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="TBL_Almacenes">
+    <Key>
+      <PropertyRef Name="Id_Almacenes" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Centros" Type="int" Nullable="false" />
+    <Property Name="Id_Almacenes" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Carrito">
+    <Key>
+      <PropertyRef Name="Id_Carrito" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Carrito" Type="int" Nullable="false" />
+    <Property Name="COD_Material" Type="int" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+    <Property Name="Cantidad_Pedida" Type="int" />
+    <Property Name="Precio" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="TBL_Centros">
+    <Key>
+      <PropertyRef Name="Id_Centros" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Sociedades" Type="int" Nullable="false" />
+    <Property Name="Id_Centros" Type="int" Nullable="false" />
+    <Property Name="NombreCentro" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Material">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GrupoArticulos" Type="varchar" MaxLength="15" />
+    <Property Name="COD_Material" Type="int" Nullable="false" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+    <Property Name="Fecha_Cad" Type="date" />
+    <Property Name="Cantidad_Disponible" Type="int" />
+    <Property Name="Precio" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="TBL_Material_X_Almacen">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Centros" Type="int" />
+    <Property Name="Id_Almacenes" Type="int" />
+    <Property Name="COD_Material" Type="int" />
+    <Property Name="Lote" Type="varchar" MaxLength="25" />
+    <Property Name="Lote_Prov" Type="varchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="TBL_Requisicion">
+    <Key>
+      <PropertyRef Name="Id_Requisicion" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_MatXAlm" Type="int" />
+    <Property Name="Id_Requisicion" Type="int" Nullable="false" />
+    <Property Name="estado" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="TBL_Sociedades">
+    <Key>
+      <PropertyRef Name="Id_Sociedades" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Sociedades" Type="int" Nullable="false" />
+    <Property Name="NombreSociedad" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TBL_Solicitantesfrecuentes">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id_Sociedades" Type="int" Nullable="false" />
+    <Property Name="SolicitanteFrecuente1" Type="varchar" MaxLength="255" />
+    <Property Name="SolicitanteFrecuente2" Type="varchar" MaxLength="255" />
+    <Property Name="SolicitanteFrecuente3" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="fk_TBL_Almacenes1">
+    <End Role="TBL_Almacenes" Type="Self.TBL_Almacenes" Multiplicity="0..1" />
+    <End Role="TBL_Material_X_Almacen" Type="Self.TBL_Material_X_Almacen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Almacenes">
+        <PropertyRef Name="Id_Almacenes" />
+      </Principal>
+      <Dependent Role="TBL_Material_X_Almacen">
+        <PropertyRef Name="Id_Almacenes" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_Centros">
+    <End Role="TBL_Centros" Type="Self.TBL_Centros" Multiplicity="1" />
+    <End Role="TBL_Almacenes" Type="Self.TBL_Almacenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Centros">
+        <PropertyRef Name="Id_Centros" />
+      </Principal>
+      <Dependent Role="TBL_Almacenes">
+        <PropertyRef Name="Id_Centros" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_Centros1">
+    <End Role="TBL_Centros" Type="Self.TBL_Centros" Multiplicity="0..1" />
+    <End Role="TBL_Material_X_Almacen" Type="Self.TBL_Material_X_Almacen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Centros">
+        <PropertyRef Name="Id_Centros" />
+      </Principal>
+      <Dependent Role="TBL_Material_X_Almacen">
+        <PropertyRef Name="Id_Centros" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_Material">
+    <End Role="TBL_Material" Type="Self.TBL_Material" Multiplicity="1" />
+    <End Role="TBL_Material_X_Almacen" Type="Self.TBL_Material_X_Almacen" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Material">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_Material_X_Almacen">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_MatXAlm">
+    <End Role="TBL_Material_X_Almacen" Type="Self.TBL_Material_X_Almacen" Multiplicity="1" />
+    <End Role="TBL_Requisicion" Type="Self.TBL_Requisicion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Material_X_Almacen">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TBL_Requisicion">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_Sociedades">
+    <End Role="TBL_Sociedades" Type="Self.TBL_Sociedades" Multiplicity="1" />
+    <End Role="TBL_Centros" Type="Self.TBL_Centros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Sociedades">
+        <PropertyRef Name="Id_Sociedades" />
+      </Principal>
+      <Dependent Role="TBL_Centros">
+        <PropertyRef Name="Id_Sociedades" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_TBL_Sociedades1">
+    <End Role="TBL_Sociedades" Type="Self.TBL_Sociedades" Multiplicity="1" />
+    <End Role="TBL_Solicitantesfrecuentes" Type="Self.TBL_Solicitantesfrecuentes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBL_Sociedades">
+        <PropertyRef Name="Id_Sociedades" />
+      </Principal>
+      <Dependent Role="TBL_Solicitantesfrecuentes">
+        <PropertyRef Name="Id_Sociedades" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SITEPLUSModelStoreContainer">
+    <EntitySet Name="TBL_Almacenes" EntityType="Self.TBL_Almacenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Carrito" EntityType="Self.TBL_Carrito" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Centros" EntityType="Self.TBL_Centros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Material" EntityType="Self.TBL_Material" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Material_X_Almacen" EntityType="Self.TBL_Material_X_Almacen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Requisicion" EntityType="Self.TBL_Requisicion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Sociedades" EntityType="Self.TBL_Sociedades" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBL_Solicitantesfrecuentes" EntityType="Self.TBL_Solicitantesfrecuentes" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_TBL_Almacenes1" Association="Self.fk_TBL_Almacenes1">
+      <End Role="TBL_Almacenes" EntitySet="TBL_Almacenes" />
+      <End Role="TBL_Material_X_Almacen" EntitySet="TBL_Material_X_Almacen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_Centros" Association="Self.fk_TBL_Centros">
+      <End Role="TBL_Centros" EntitySet="TBL_Centros" />
+      <End Role="TBL_Almacenes" EntitySet="TBL_Almacenes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_Centros1" Association="Self.fk_TBL_Centros1">
+      <End Role="TBL_Centros" EntitySet="TBL_Centros" />
+      <End Role="TBL_Material_X_Almacen" EntitySet="TBL_Material_X_Almacen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_Material" Association="Self.fk_TBL_Material">
+      <End Role="TBL_Material" EntitySet="TBL_Material" />
+      <End Role="TBL_Material_X_Almacen" EntitySet="TBL_Material_X_Almacen" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_MatXAlm" Association="Self.fk_TBL_MatXAlm">
+      <End Role="TBL_Material_X_Almacen" EntitySet="TBL_Material_X_Almacen" />
+      <End Role="TBL_Requisicion" EntitySet="TBL_Requisicion" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_Sociedades" Association="Self.fk_TBL_Sociedades">
+      <End Role="TBL_Sociedades" EntitySet="TBL_Sociedades" />
+      <End Role="TBL_Centros" EntitySet="TBL_Centros" />
+    </AssociationSet>
+    <AssociationSet Name="fk_TBL_Sociedades1" Association="Self.fk_TBL_Sociedades1">
+      <End Role="TBL_Sociedades" EntitySet="TBL_Sociedades" />
+      <End Role="TBL_Solicitantesfrecuentes" EntitySet="TBL_Solicitantesfrecuentes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

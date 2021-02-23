@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+@{
+    Layout = null;
+}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<div class="container mt-5">
+
+    @{ if (!string.IsNullOrEmpty(ViewBag.Message)) 
+        { 
+        //tiene un valor
+        <div class="alert alert-danger">@ViewBag.Message</div>
+        } 
+     }
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <h3 class="text-uppercase text-info text-center mb-4">Requisición de papelería</h3>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <div align="center">
+                    <br />
+                    <br />
+                    <img src="~/Images/Logo-Grupo-Farinter-01.png" class="img-fluid" alt="Responsive image" />
+
+                </div>
+                <div class="card-body">
+                    <form action="/Home/Login" method="post">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="user" name="user" placeholder="USUARIO">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input id="contraseña" type="Password" name="contraseña" class="form-control" placeholder="Contraseña">
+                                <div class="input-group-append">
+                                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()"> <span class="fa fa-eye-slash icon"></span> </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-block btn-primary">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="row text-center">
+            <h6 class="text-muted  mb-4">Realiza tus solicitudes de materiales aquí</h6>
+        </div>
+        <img src="~/Images/papeleria.jpg" class="img-fluid" alt="Responsive image" />
+    </div>
+</div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<script>
+    function mostrarPassword() {
+        var cambio = document.getElementById("contraseña");
+        if (cambio.type == "password") {
+            cambio.type = "text";
+            $('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+        } else {
+            cambio.type = "password";
+            $('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+        }
+    }
+</script>

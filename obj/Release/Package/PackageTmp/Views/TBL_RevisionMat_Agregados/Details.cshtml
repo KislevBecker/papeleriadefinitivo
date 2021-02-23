@@ -1,0 +1,122 @@
+﻿@model ProgramaDeRequisas.Models.TBL_RevisionMat_Agregados
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TBL_RevisionMat_Agregados</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MATNR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATNR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MAKTX)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MAKTX)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sociedad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sociedad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Centro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Centro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ceco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ceco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Almacen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Almacen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Solicitada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Solicitada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Aprobada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Aprobada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Solicitud)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Solicitud)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha_Cambio_Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha_Cambio_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario_Solicitante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario_Solicitante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID_Revision }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

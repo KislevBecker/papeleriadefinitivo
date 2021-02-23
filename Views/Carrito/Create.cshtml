@@ -1,0 +1,157 @@
+﻿@model ProgramaDeRequisas.Models.Requisas
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal mt-5">
+        <h4>Crear requisa</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <label><span class="badge badge-pill badge-primary">1</span> Seleccione Sociedad-Centro-Almacén</label>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.NombreSociedad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NombreSociedad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreSociedad, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("Id_Sociedades", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("Id_Centros", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("Id_Almacenes", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.NombreCentro, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NombreCentro, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreCentro, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Id_Almacenes, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Id_Almacenes, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Id_Almacenes, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div>
+                <input type="button" id="Registrar2" value="Iniciar requisa" class="btn btn-success" />
+                <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Ir al historial de requisas", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de Sociedades
+            $.getJSON('/Requisas1/GetSociedades', function (data) {
+                $.each(data, function () {
+                    $('#Id_Sociedades').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de Centtos
+            $("#Id_Sociedades").bind('click', function () {
+                var id = $('select[id=Id_Sociedades]').val();
+                $('#Id_Centros').empty();
+                $('#Id_Centros').val('');
+
+                $.getJSON('/Requisas1/GetCentros', { Id_Sociedades: id }, function (data) {
+                    $.each(data, function () {
+                        $('#Id_Centros').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información Almacenes
+            $("#Id_Centros").bind('click', function () {
+                var id = $('select[id=Id_Centros]').val();
+                $('#Id_Almacenes').empty();
+                $('#Id_Almacenes').val('');
+
+                $.getJSON('/Requisas1/GetAlmacenes', { Id_Sociedades: id}, function (data) {
+                    $.each(data, function () {
+                        $('#Id_Almacenes').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#Id_Sociedad').val();
+            var centro_id = $('#Id_Centro').val();
+            var almacen_id = $('#Id_Almacen').val();
+            //var cantidad = $('#cantidad').val();
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                alert("¡Debe seleccionar una sociedad!");
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                alert("¡Debe seleccionar un centro!");
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                alert("¡Debe seleccionar un descuento!");
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+    </script>
+}

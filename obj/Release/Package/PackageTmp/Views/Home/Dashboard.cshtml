@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Bienvenido/a";
+    string userName = HttpContext.Current.User.Identity.Name;
+}
+
+<div class="text-center mt-5">
+    <h2 class="text-center text-primary mt-5 pt-5">@ViewBag.Title, @userName</h2>
+    <img src="~/Images/Logo-Grupo-Farinter-01.png" class="w-75 mt-5" alt="logo-farinter" />
+</div>

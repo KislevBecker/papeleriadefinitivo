@@ -1,0 +1,136 @@
+﻿@model ProgramaDeRequisas.Models.TBL_Materiales_X_Sociedad
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TBL_Materiales_X_Sociedad</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Grupo_Articulos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Grupo_Articulos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Codigo_material)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Codigo_material)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lote)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lote_Proveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lote_Proveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCaducidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCaducidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Libre_utilizacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Libre_utilizacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Control_Calidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Control_Calidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Trans_Tras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Trans_Tras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor_Libre_Util)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor_Libre_Util)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pendiente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pendiente)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBL_Almacenes.Id_Almacenes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBL_Almacenes.Id_Almacenes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBL_Centros.NombreCentro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBL_Centros.NombreCentro)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

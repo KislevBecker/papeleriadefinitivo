@@ -1,0 +1,430 @@
+﻿@model ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes
+
+@{
+    ViewBag.Title = "Crear requisa";
+}
+
+
+
+@using (Html.BeginForm("filtrarLista", "VSP_Sociedades_Centros_Almacenes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @*datatables*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+
+
+    <div class="form-horizontal mt-5">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form action="VSP_Sociedades_Centros_Almacenes/filtrarLista" method="post">
+            <div class="form-row">
+                <div class="card">
+                    <div class="card-body">
+                        <label><span class="badge badge-pill badge-secondary">1</span> Seleccione Sociedad-Centro-Almacén-CeCo</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("SociedadesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione sociedad---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("CentrosID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione centro---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("AlmacenesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione almacén---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("CeCoID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione CeCo---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="submit" id="Reg" value="Mostrar datos" class="btn btn-success"  />
+                            @*<input type="button" id="Reg2" value="Mostrar datos" class="btn btn-success" />*@
+                            @*<button class="btn btn-block btn-dark" onclick="">Mostrar datos</button>*@
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+        }
+        @using (Html.BeginForm())
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-row mt-3">
+                        <label><span class="badge badge-pill badge-secondary">2</span> Seleccione los materiales que necesita para agregar al carrito</label>
+                    </div>
+
+                    <div class="c-table">
+                        <div class="table-responsive table-stripered ctable-hijo">
+                            <table id="table_id" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>Código de material</th>
+                                        <th>Descripcion</th>
+                                        <th>Grupo</th>
+                                        <th>Cantidad a solicitar</th>
+                                        <th>Cantidad disponible</th>
+                                        <th>Precio variable</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@foreach (var item in Model) {*@
+                                    <tr>
+                                        <td>1</td>
+                                        <td>PAPELERIA</td>
+                                        <td>AS200</td>
+                                        <td>2006</td>
+                                        <td>
+                                            <div class="form-inline">
+                                                <a id="min" style="cursor:pointer;"><i class="fas fa-minus-circle fa-2x fa-lg"></i></a>
+                                                <input name="quantity" id="quantity" value="1" size="4" type="number" onchange="cambio()" class="form-control text-center" />
+                                                <a id="plus" style="cursor:pointer;"><i class="fas fa-plus-circle fa-2x fa-lg"></i></a>
+                                            </div>
+
+                                        </td>
+                                        @*<td>
+                                            @Html.ActionLink("Agregar", "AgregaCarrito", "Carrito", new { Id = item.Id})
+                                        </td>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group mt-2">
+                        <div>
+                            <div class="form-row mb-1">
+                                <label><span class="badge badge-pill badge-secondary">3</span> Una vez que haya agregado todos sus productos, ingrese una descripción para la requisa y proceda a guardar</label>
+                            </div>
+                            <div class="form-row">
+                                <label>Título o descripción de la requisa</label>
+                                <input class="form-control mb-2" id="requisa_name" name="requisa_name" />
+                            </div>
+                            <input type="button" id="Registrar2" value="Terminar requisa" class="btn btn-success" />
+                            <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+      
+}
+<div class="mt-3">
+   <a href="@Url.Action("Ir al historial de requisas", "Index")"><i class="fas fa-arrow-circle-left"></i> Ir al historial de requisas</a>
+</div>
+
+
+<!-- Modal
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Ingrese la cantidad a solicitar</label>
+                <br />
+                <div class="form-inline">
+                    <a id="min" style="cursor:pointer;"><i class="fas fa-minus-circle fa-2x fa-lg"></i></a>
+                    <input name="quantity" id="quantity" value="1" size="4" readonly class="form-control" />
+                    <a id="plus" style="cursor:pointer;"><i class="fas fa-plus-circle fa-2x fa-lg"></i></a>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="addToCart()">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+     -->
+@*fin modal*@
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+    <script>
+        var modal, datatable;
+        $(document).ready(function () {
+            datatable= $('#table_id').DataTable({
+                //"ajax": {
+                //    "url": "/VSP_Sociedades_Centros_Almacenes/GetSociedades2",
+                //    "type": "GET",
+                //    "datatype": "json"
+                //},
+                //"columns"[
+                //    { "data": "ID" },
+                //    { "data": "Nombre_Sociedades" },
+                //],
+                "language": {
+                    "emptyTable":"No hay datos para mostrar, por favor agregue uno",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de Sociedades
+            $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetSociedades', function (data) {
+                $.each(data, function () {
+                    $('#SociedadesID').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de Centtos
+            $("#SociedadesID").bind('click', function () {
+                var id = $('select[id=SociedadesID]').val();
+                $('#CentrosID').empty();
+                $('#CentrosID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCentros', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#CentrosID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información Almacenes
+            $("#CentrosID").bind('click', function () {
+                var id = $('select[id=CentrosID]').val();
+                $('#AlmacenesID').empty();
+                $('#AlmacenesID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetAlmacenes', { centro_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#AlmacenesID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información de Ceco
+            $("#SociedadesID").bind('click', function () {
+                var id = $('select[id=SociedadesID]').val();
+                //$('#CeCoID').empty();
+                //$('#CeCoID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCeco', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#CeCoID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+
+
+        //Agregar productos al carrito
+        function addToCart() {
+            document.getElementById("myButton1").text = "Artículo Agregado";
+            $('.boton').removeClass('btn btn-success').addClass('btn btn-warning');
+
+            swal({
+                title: "Artículo Guardado!",
+                text: "Su artículo ha sido agregado al carrito.",
+                icon: "success", //built in icons: success, warning, error, info
+                timer: 3000, //timeOut for auto-close
+            });
+            //$('#exampleModal').modal('hide');
+            //swal({
+            //    title: "CANTIDAD SOBREPASADA",
+            //    text: "No puede solicitar mas de lo disponible.",
+            //    icon: "warning", //built in icons: success, warning, error, info
+            //    //timer: 3000, //timeOut for auto-close
+            //});
+            //swal({
+            //    title: "Ha ocurrido un error",
+            //    text: "Su artículo no se ha podido agregar al carrito, intente de nuevo.",
+            //    icon: "error", //built in icons: success, warning, error, info
+            //    //timer: 3000, //timeOut for auto-close
+            //});
+        }
+
+        //input de cantidad a solicitar
+        $('#min').click(function () {
+            if ($('#quantity').val() != 1) {
+                $('#quantity').val(parseInt($('#quantity').val()) - 1);
+                if (parseInt($('#quantity').val()) < parseInt($('#stock').text())) {
+                document.getElementById('stock').style.color = 'black';
+                }
+            }
+        });
+        $('#plus').click(function () {
+            $('#quantity').val(parseInt($('#quantity').val()) + 1);
+            if (parseInt($('#quantity').val()) > parseInt($('#stock').text()))    {
+                document.getElementById('stock').style.color = 'red';
+                document.getElementById('stock').style.fontWeight = 'bold';
+            }
+            else {
+                document.getElementById('stock').style.color = 'black';
+            }
+        });
+        //fin input
+
+        function cambio() {
+            if (parseInt($('#quantity').val()) > parseInt($('#stock').text())) {
+                document.getElementById('stock').style.color = 'red';
+                document.getElementById('stock').style.fontWeight = 'bold';
+            }
+            else {
+                document.getElementById('stock').style.color = 'black';
+            }
+            //if (parseInt($('#quantity').val()) > parseInt($('#stock').text())) {
+            //    document.getElementById('stock').style.color = 'red';
+            //    document.getElementById('stock').style.fontWeight = 'bold';
+            //}
+            //else if (parseInt($('#quantity').val()) < 1) {
+            //    document.getElementById('quantity').style.color = 'red';
+            //}
+            //else {
+            //    document.getElementById('stock').style.color = 'black';
+            //}
+        }
+
+
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#SociedadesID').val();
+            var centro_id = $('#CentrosID').val();
+            var almacen_id = $('#AlmacenesID').val();
+            var ceco_id = $('#CeCoID').val();
+            var titulo = $('#requisa_name').val();
+            var cantidad = parseInt($('#quantity').val());
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+            console.log("ceco_id " + ceco_id);
+            console.log("requisa_name " + titulo);
+            console.log("cantidad" + cantidad);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                swal({
+                    title: "Debe seleccionar una sociedad",
+                    icon: "error", //built in icons: success, warning, error, info
+               });
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                swal({
+                    title: "Debe seleccionar un centro",
+                    icon: "error", //built in icons: success, warning, error, info
+                 });
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                swal({
+                    title: "Debe seleccionar un almacén.",
+                    icon: "error", //built in icons: success, warning, error, info
+                 });
+            }
+            else if (ceco_id == "" || ceco_id == null) {
+                console.log(ceco_id);
+                swal({
+                    title: "Debe seleccionar un centro de costo",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (cantidad < 1) {
+                console.log(cantidad);
+                swal({
+                    title: "La cantidad mínima a solicitar es 1",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (titulo == "" || titulo == null) {
+                console.log(titulo);
+                swal({
+                    title: "Debe dar una descripcion para guardar la requisa",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+
+        //$("#Reg2").click(async function () {
+        //    var sociedad_id = $('#SociedadesID').val();
+
+        //    if (sociedad_id == "" || sociedad_id == null) {
+        //        console.log(sociedad_id);
+        //        swal({
+        //            title: "Debe seleccionar una sociedad",
+        //            icon: "error", //built in icons: success, warning, error, info
+        //        });
+        //    }
+        //    else {
+        //        try {
+
+        //            var resp = await fetch({ method: 'post', url:'/api/VSP_Sociedades_Centros_Almacenes/filtrarLista' });
+        //            //$("#Reg").click();
+        //            console.log(await resp.json());
+        //        }
+        //        catch (ex)
+        //        {
+        //        }
+                
+        //    }
+           
+        //});
+    </script>
+}

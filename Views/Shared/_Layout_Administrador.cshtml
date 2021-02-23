@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Requisa de materiales</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @*fontawesome*@
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    @*para sweetalert*@
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {@ViewBag.Title =
+    List
+    <ClsShoppingCart>compras = (List<ClsShoppingCart>)Session["carrito"];
+    @ViewBag.Compras=compras.Count;
+    }
+</head>
+<body>
+    <div class="navbar navbar-light navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle  text-primary" data-toggle="collapse" data-target=".navbar-collapse">
+                    <i class="fas fa-bars fa-2x"></i>
+                </button>
+                @Html.ActionLink("Inicio", "Dashboard", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Historial de requisas", "Index", "VSP_Sociedades_Centros_Almacenes")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {<li><a href="@Url.Action("Index", "TBL_Carrito")" title="Ver carrito"><i class="fas fa-shopping-cart"></i> <span class="badge badge-pill badge-primary">@ViewBag.Compra Artículos agregados</span></a></li>
+                        <li>@Html.ActionLink("Revisar requisas", "Index", "RevisionRequisas")</li>
+                        <li>@Html.ActionLink("Mantenimiento de materiales", "Index", "TBL_Materiales_X_Sociedad")</li>
+                    }
+                </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-outline-danger btn-right mt-1" onclick="userLogOff()"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+                }
+            </div>
+            <hr />
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer class="border-top footer text-muted" >
+            <div class="container">
+                <div class="text-center mb-3">
+                    Copyright &copy;
+                    <script>new Date().getFullYear() > document.write(new Date().getFullYear());</script> - Requisa de materiales
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+    function userLogOff() {
+        location.replace("/Home/Logout");
+    }
+</script>

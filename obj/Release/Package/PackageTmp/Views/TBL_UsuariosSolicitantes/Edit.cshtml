@@ -1,0 +1,242 @@
+﻿@model ProgramaDeRequisas.Models.TBL_UsuariosSolicitantes
+
+@{
+    ViewBag.Title = "Editar usuario";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-row">
+                        <label><span class="badge badge-pill badge-secondary">1</span> Editar datos del usuario:</label>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.nombreSolicitante, new { htmlAttributes = new { @class = "form-control", @placeholder = "Nombre del usuario" } })
+                                @Html.ValidationMessageFor(model => model.nombreSolicitante, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.pass, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contraseña a asignar" } })
+                                @Html.ValidationMessageFor(model => model.pass, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("Id_Tipo", null, "---Seleccione tipo de solicitante---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Id_Tipo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-row">
+                    <label><span class="badge badge-pill badge-secondary">2</span> Sociedad, Centro, Almacén y CeCo:</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*@Html.DropDownList("Id_Sociedades", null, "---Seleccione una sociedad---", htmlAttributes: new { @class = "form-control", @disabled = true })*@
+                                @Html.EditorFor(model => model.Id_Sociedades, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Id_Sociedades, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*@Html.DropDownList("ID_Centro", null, "---Seleccione un centro---", htmlAttributes: new { @class = "form-control", @disabled = true })*@
+                                @Html.EditorFor(model => model.ID_Centro, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ID_Centro, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*@Html.DropDownList("ID_Almacen", null, "---Seleccione un almacén---", htmlAttributes: new { @class = "form-control", @disabled = true })*@
+                                @Html.EditorFor(model => model.ID_Almacen, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ID_Almacen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @*@Html.DropDownList("ID_CECO", null, "---Seleccione CeCo---", htmlAttributes: new { @class = "form-control", @disabled = true })*@
+                                @Html.EditorFor(model => model.ID_CECO, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.ID_CECO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-row">
+                    <label><span class="badge badge-pill badge-secondary">3</span> Editar estado y rol de usuario:</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Estado", null, "---Seleccione estado---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Estado, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("ID_Rol", null, "---Seleccione un rol---", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ID_Rol, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Guardar cambios" class="btn btn-outline-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div class="mt-3">
+    <a href="@Url.Action("Index", "TBL_UsuariosSolicitantes" )"><i class="fas fa-arrow-circle-left"></i> Volver a la lista</a>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(Document).ready(function () {
+
+
+            $(document).ready(function () {
+                // Traer información de Sociedades
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetSociedades', function (data) {
+                    $.each(data, function () {
+                        $('#SociedadesID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+
+                //Traer información de Centtos
+                $("#SociedadesID").bind('click', function () {
+                    var id = $('select[id=SociedadesID]').val();
+                    $('#CentrosID').empty();
+                    $('#CentrosID').val('');
+
+                    $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCentros', { sociedad_id: id }, function (data) {
+                        $.each(data, function () {
+                            $('#CentrosID2').append('<option value=' +
+                                this.Value + '>' + this.Text + '</option>');
+                        });
+                    });
+                });
+
+                //Traer información Almacenes
+                $("#CentrosID").bind('click', function () {
+                    var id = $('select[id=CentrosID]').val();
+                    $('#AlmacenesID').empty();
+                    $('#AlmacenesID').val('');
+
+                    $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetAlmacenes', { centro_id: id }, function (data) {
+                        $.each(data, function () {
+                            $('#AlmacenesID2').append('<option value=' +
+                                this.Value + '>' + this.Text + '</option>');
+                        });
+                    });
+                });
+
+                //Traer información de Ceco
+                $("#SociedadesID").bind('click', function () {
+                    var id = $('select[id=SociedadesID]').val();
+                    //$('#CeCoID').empty();
+                    //$('#CeCoID').val('');
+
+                    $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCeco', { sociedad_id: id }, function (data) {
+                        $.each(data, function () {
+                            $('#CeCoID2').append('<option value=' +
+                                this.Value + '>' + this.Text + '</option>');
+                        });
+                    });
+                });
+            });
+
+
+
+
+
+            var id = $("#Id_Sociedades").val();
+            var zona_web = $("#ID_Centro").val();
+            var descuento_id = $("#ID_Almacen").val();
+            var descuento_id = $("#ID_CECO").val();
+
+            // Traer información de paises
+            $.getJSON('/TBL_UsuariosSolicitantes/GeSociedades', function (data) {
+                $.each(data, function () {
+                    $('#Emp_Id2').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                    //var id = $("#emp_id").val();
+                    $("#Emp_Id2 option[value='" + id + "']").attr('selected', 'selected');
+                });
+            });
+
+            // Traer información de zona
+            $.getJSON('/TSP_DescuentosxZona/GetZona', { emp_id: id }, function (data) {
+                $.each(data, function () {
+                    $('#Zona_Web2').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                    $("#Zona_Web2 option[value='" + zona_web + "']").attr('selected', 'selected');
+                });
+            });
+
+            // Traer información de descuento
+            $.getJSON('/TSP_DescuentosxZona/GetDescto', { emp_id: id }, function (data) {
+                $.each(data, function () {
+                    $('#Descuento_Id2').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                    $("#Descuento_Id2 option[value='" + descuento_id + "']").attr('selected', 'selected');
+                });
+            });
+
+        });
+    </script>
+}

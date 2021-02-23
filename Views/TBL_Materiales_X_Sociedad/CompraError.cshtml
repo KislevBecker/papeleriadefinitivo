@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "CompraError";
+}
+
+<h2>CompraError</h2>
+<style>
+    .swal-text {
+        font-size: 16px;
+        position: relative;
+        float: none;
+        line-height: normal;
+        vertical-align: top;
+        text-align: center !important;
+        display: inline-block;
+        margin: 0;
+        padding: 0 10px;
+        font-weight: 400;
+        color: rgba(0,0,0,.64);
+        max-width: calc(100% - 20px);
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+    }
+</style>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            swal({
+                title: "¡Ha ocurrido un problema!",
+                text: "Hemos experimentado un problema agregando su carrito a la lista, por favor intente de nuevo.",
+                icon: "error", //built in icons: success, warning, error, info
+             });
+            $(".swal-button").click(function () {
+                window.location.href = "/TBL_Materiales_X_Sociedad/";
+            })
+        });
+    </script>
+
+}

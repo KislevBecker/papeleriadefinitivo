@@ -1,0 +1,139 @@
+﻿@model ProgramaDeRequisas.Models.TBL_RevisionMat_Agregados
+
+@{
+    ViewBag.Title = "Eliminar item";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>¿Está seguro/a de eliminar este item?</h3>
+<div>
+    <hr />
+    <div class="row">
+        <div class="col-md-6 offset-3">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    Código
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MATNR)
+                </dd>
+
+                <dt>
+                    Descripción
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.MAKTX)
+                </dd>
+
+                <dt>
+                    Sociedad
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Sociedad)
+                </dd>
+
+                <dt>
+                    Centro
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Centro)
+                </dd>
+
+                <dt>
+                    Centro de Costo
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Ceco)
+                </dd>
+
+                <dt>
+                    Almacén
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Almacen)
+                </dd>
+
+                <dt>
+                    Cantidad solicitada
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Cantidad_Solicitada)
+                </dd>
+
+                <dt>
+                    Cantidad aprobada
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Cantidad_Aprobada)
+                </dd>
+
+                <dt>
+                    Fecha de solicitud
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Fecha_Solicitud)
+                </dd>
+
+                <dt>
+                    Fecha de revisión
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Fecha_Cambio_Estado)
+                </dd>
+
+                <dt>
+                    Solicitante
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.usuario_Solicitante)
+                </dd>
+
+                <dt>
+                    Estado actual
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Estado)
+                </dd>
+
+                <dt>
+                    Comentario u observación
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Comentario)
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+
+        </div>
+    </div>
+    
+          
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <input type="submit" value="Eliminar" class="btn btn-outline-danger" /> |
+    <a href="@Url.Action("Index", "TBL_RevisionMat_Agregados" )"><i class="fas fa-arrow-circle-left"></i> Regresar a la lista</a>
+</div>
+            }
+        </div>

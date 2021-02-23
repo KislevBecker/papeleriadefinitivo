@@ -1,0 +1,90 @@
+﻿@model ProgramaDeRequisas.Models.TBL_UsuariosSolicitantes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TBL_UsuariosSolicitantes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombreSolicitante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombreSolicitante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Centro)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Centro)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Almacen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Almacen)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_CECO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_CECO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ID_Rol)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID_Rol)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBL_Sociedades.NombreSociedad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBL_Sociedades.NombreSociedad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TBL_TipoSolicitante.TipoSolicitante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TBL_TipoSolicitante.TipoSolicitante)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

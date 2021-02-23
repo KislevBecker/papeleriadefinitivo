@@ -1,0 +1,246 @@
+﻿@*@model ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes
+
+    @{
+        ViewBag.Title = "Details";
+    }
+
+    <h2>Details</h2>
+
+    <div>
+        <h4>VSP_Sociedades_Centros_Almacenes</h4>
+        <hr />
+        <dl class="dl-horizontal">
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+
+
+@model ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes
+
+@{
+    ViewBag.Title = "Detalles de requisa";
+    string userName = HttpContext.Current.User.Identity.Name;
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*datatables*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+
+
+    <div class="form-horizontal mt-5">
+        @*<h4>@ViewBag.Title</h4>
+        <hr />*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+        <div class="row mb-3">
+            <div class="col-md-12 text-center">
+                <h2>Requisicion N°2</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label class="text-left">Fecha de requisición: </label>
+                <label class="text-right text-primary">&nbsp;17/10/2020</label>
+            </div>
+            <div class="col-md-4">
+                <label class="text-left">Nombre del usuario: </label>
+                <label class="text-right text-primary">&nbsp;@userName</label>
+            </div>
+            <div class="col-md-4">
+                <label class="text-left">Id-requisa: </label>
+                <label class="text-right text-primary">&nbsp;2</label>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-4">
+                <label class="text-left">Centro de costo: </label>
+                <label class="text-right text-primary">&nbsp;111110-Logistica</label>
+            </div>
+            <div class="col-md-4">
+                <label class="text-left">Sociedad: </label>
+                <label class="text-right text-primary">&nbsp;Farinter</label>
+            </div>
+            <div class="col-md-3">
+                <label class="text-left">Estado: </label>
+                <label class="text-right text-primary">&nbsp;En proceso</label>
+            </div>
+        </div>
+        <div class="c-table">
+            <div class="table-responsive table-stripered ctable-hijo">
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Descripcion</th>
+                            <th>Código de material</th>
+                            <th>Grupo</th>
+                            <th>Cantidad a solicitar</th>
+                            <th>Precio variable</th>
+                            
+                            <th>Observaciones</th>
+                            @*<th></th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var item in Model) {*@
+                        <tr>
+                            <td>1</td>
+                            <td>PAPELERIA</td>
+                            <td>AS200</td>
+                            <td>2006</td>
+                            <td>5</td>
+                            <td>50</td>
+                            <td>L. 123.00</td>
+                            <!--<td>
+                                <div class="form-inline">
+                                    <div class="btn-group" role="group" aria-label="Basic example">-->
+                                        @*<button type="button" class="btn btn-success" onclick="addToCart()"><i class="fas fa-shopping-cart"></i></button>*@
+                                        <!--<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="form-group mt-2">
+            <div>
+                <input type="button" id="Registrar2" value="Editar" class="btn btn-success" />
+                <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al historial de requisas", "Index")
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label>Eliminar</label>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <label>Está seguro/a de eliminar este material del carrito?</label>
+                <br />
+                <i class="far fa-question-circle fa-7x fa-lg text-primary mt-1"></i>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="deleteFromCart()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*fin modal*@
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#SociedadesID').val();
+            var centro_id = $('#CentrosID').val();
+            var almacen_id = $('#AlmacenesID').val();
+            var ceco_id = $('#CeCoID').val();
+            var titulo = $('#requisa_name').val();
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+            console.log("ceco_id " + ceco_id);
+            console.log("requisa_name " + titulo);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                swal({
+                    title: "Debe seleccionar una sociedad",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                swal({
+                    title: "Debe seleccionar un centro",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                swal({
+                    title: "Debe seleccionar un almacén.",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (ceco_id == "" || ceco == null) {
+                console.log(ceco);
+                swal({
+                    title: "Debe seleccionar un centro de costo",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (titulo == "" || titulo == null) {
+                console.log(titulo);
+                swal({
+                    title: "Debe dar una descripcion para guardar la requisa",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+    </script>
+}

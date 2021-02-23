@@ -1,0 +1,139 @@
+﻿@model ProgramaDeRequisas.Models.TBL_Carrito
+
+@{
+    ViewBag.Title = "Editar carrito";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">N°</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.ID, new { htmlAttributes = new { @class = "form-control", @readOnly = true } })
+                        @Html.ValidationMessageFor(model => model.ID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">Código de material</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.COD_Material, new { htmlAttributes = new { @class = "form-control", @readOnly = true } })
+                        @Html.ValidationMessageFor(model => model.COD_Material, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">Descripción</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", @readOnly = true } })
+                        @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">Cantidad solicitada</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Cantidad_Pedida, new { htmlAttributes = new { @class = "form-control", @readOnly = true } })
+                        @Html.ValidationMessageFor(model => model.Cantidad_Pedida, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">Cantidad Disponible</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Cantidad_Disponible, new { htmlAttributes = new { @class = "form-control", @readOnly = true } })
+                        @Html.ValidationMessageFor(model => model.Cantidad_Disponible, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row col-md-12">
+                    <label class="text-primary">Cantidad aprobada</label>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Cantidad_Aprobada, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cantidad_Aprobada, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        @Html.HiddenFor(model => model.Id_Carrito)
+
+
+        <div class="form-group" style="display: none;">
+            @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12">
+                @*<input type="submit" value="Save" class="btn btn-default" />*@
+                <input type="button" id="Registrar2" value="Terminar requisa" class="btn btn-success" />
+                <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var cant = $('#Cantidad_Aprobada').val();
+
+            if (cant == "" || cant == null) {
+                console.log("cantidad " + cant);
+                swal({
+                    title: "El campo 'Cantidad Aprobada' es obligatorio",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+    </script>
+}

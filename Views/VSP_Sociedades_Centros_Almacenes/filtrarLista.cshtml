@@ -1,0 +1,369 @@
+﻿@model IEnumerable<ProgramaDeRequisas.Models.codigossap>
+
+@{
+    ViewBag.Title = "Iniciar requisa";
+}
+
+@using (Html.BeginForm("filtrarLista", "VSP_Sociedades_Centros_Almacenes", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal mt-5">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <form action="VSP_Sociedades_Centros_Almacenes/filtrarLista" method="post">
+            <div class="form-row">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <label><span class="badge badge-pill badge-secondary">1</span> Seleccione Sociedad-Centro-Almacén-CeCo</label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("SociedadesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione sociedad---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("CentrosID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione centro---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("AlmacenesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione almacén---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("CeCoID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione CeCo---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="btn btn-block btn-primary" type="submit">Mostrar datos</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+}
+
+@*datatables*@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.3.1/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/r-2.2.7/sc-2.0.3/datatables.min.css" />
+
+
+@Html.AntiForgeryToken()
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="form-row mt-3">
+            <label><span class="badge badge-pill badge-secondary">2</span> Seleccione los materiales que necesita para agregar al carrito</label>
+        </div>
+        @*Formulario modal agregado al 16012021*@
+        <div class="modal fade modalEditClass" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5" style="color: rebeccapurple;">Editar formulario</h4>
+                        <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Código</label>
+                            <input type="text" id="formMATNREdit" class="form-control validate" readonly>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Descripción</label>
+                            <input type="text" id="formMAKTXEdit" class="form-control validate" readonly>
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <label data-error="wrong" data-success="right" for="formNameEdit">Cantidad</label>
+                            <input type="text" id="formCantidadEdit" class="form-control validate">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center editInsideWrapper">
+                        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" id="Editar" onclick="return Editar();">
+                            Guardar
+                            <i class="fas fa-paper-plane-o ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*hasta aqui*@
+
+        <div class="c-table">
+            <div class="table-responsive table-stripered ctable-hijo">
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>
+                                Código
+                            </th>
+                            <th>
+                                Descripción
+                            </th>
+                            <th>Cantidad a solicitar</th>
+                            <th>Accion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MATNR)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MAKTX)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cantidad_Pedida)
+                                </td>
+                                <td>
+                                    <div class="text-center buttonEditWrapper">
+                                        <button class="btn btn-info btn-rounded btn-sm buttonEdit" data-toggle="modal" data-target="#modalEdit" />Editar cantidad <a><i class="fas fa-edit ml-1 text-white"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="@Url.Action(" Ir al historial de requisas", "Index" )"><i class="fas fa-arrow-circle-left"></i> Ir al historial de requisas</a>
+</div>
+
+@if (ViewBag.Message != null)
+{
+<script type="text/javascript">
+            window.onload = function () {
+                swal({
+                    title: "@ViewBag.Message",
+                    icon: "info", //built in icons: success, warning, error, info
+                    timer: 5000, //timeOut for auto-close
+                });
+                //alert("@ViewBag.Message");
+            };
+</script>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.3.1/jszip-2.5.0/dt-1.10.23/b-1.6.5/b-flash-1.6.5/b-html5-1.6.5/b-print-1.6.5/cr-1.5.3/fc-3.3.2/fh-3.1.8/r-2.2.7/sc-2.0.3/datatables.min.js"></script>
+
+
+
+    @*para iniciar el datatable*@
+<script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+             });
+        });
+
+
+        function Editar()
+        {
+            var MATNR = $("#formMATNREdit").val();
+            var Cantidad = $("#formCantidadEdit").val();
+            var MAKTX = $("#formMAKTXEdit").val();
+
+            if (Cantidad == "" || Cantidad == null || Cantidad == 0) {
+                swal({
+                    title: "Error alprocesar",
+                    text: "¡La cantidad debe tener un valor y debe ser distinto a cero!",
+                    icon: "error", //built in icons: success, warning, error, info
+                    timer: 5000, //timeOut for auto-close
+                });
+            }
+            else
+            {
+                location.href = '@Url.Action("Edit", "TBL_RevisionMat_Agregados")?MATNR=' + MATNR + '&Cantidad=' + Cantidad + '&MAKTX=' + MAKTX;
+            }
+        }
+
+    $('#table_id tr').on('click', function () {
+        var MATNR = $(this).find('td:nth-child(1)').html();
+        var MAKTX = $(this).find('td:nth-child(2)').html();
+        var Cantidad = $(this).find('td:nth-child(3)').html();
+
+        $("#formMATNREdit").val(MATNR.trim());
+        $("#formCantidadEdit").val(Cantidad.trim());
+        $("#formMAKTXEdit").val(MAKTX.trim());
+
+    });
+
+
+
+</script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de Sociedades
+            $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetSociedades', function (data) {
+                $.each(data, function () {
+                    $('#SociedadesID').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de Centtos
+            $("#SociedadesID").bind('click', function () {
+                var id = $('select[id=SociedadesID]').val();
+                $('#CentrosID').empty();
+                $('#CentrosID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCentros', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#CentrosID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información Almacenes
+            $("#CentrosID").bind('click', function () {
+                var id = $('select[id=CentrosID]').val();
+                $('#AlmacenesID').empty();
+                $('#AlmacenesID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetAlmacenes', { centro_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#AlmacenesID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información de Ceco
+            $("#SociedadesID").bind('click', function () {
+                var id = $('select[id=SociedadesID]').val();
+                //$('#CeCoID').empty();
+                //$('#CeCoID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCeco', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#CeCoID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+
+
+        //Agregar productos al carrito
+        function addToCart() {
+            document.getElementById("myButton1").text = "Artículo Agregado";
+            $('.boton').removeClass('btn btn-success').addClass('btn btn-warning');
+
+            swal({
+                title: "Artículo Guardado!",
+                text: "Su artículo ha sido agregado al carrito.",
+                icon: "success", //built in icons: success, warning, error, info
+                timer: 3000, //timeOut for auto-close
+            });
+        }
+
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#SociedadesID').val();
+            var centro_id = $('#CentrosID').val();
+            var almacen_id = $('#AlmacenesID').val();
+            var ceco_id = $('#CeCoID').val();
+            var cantidad = parseInt($('#quantity').val());
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+            console.log("ceco_id " + ceco_id);
+            console.log("cantidad" + cantidad);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                swal({
+                    title: "Debe seleccionar una sociedad",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                swal({
+                    title: "Debe seleccionar un centro",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                swal({
+                    title: "Debe seleccionar un almacén.",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (ceco_id == "" || ceco_id == null) {
+                console.log(ceco_id);
+                swal({
+                    title: "Debe seleccionar un centro de costo",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (cantidad < 1) {
+                console.log(cantidad);
+                swal({
+                    title: "La cantidad mínima a solicitar es 1",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+
+    </script>
+}
+

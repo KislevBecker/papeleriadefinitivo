@@ -1,0 +1,386 @@
+﻿@*@model ProgramaDeRequisas.Models.TBL_Material
+
+    @{
+        ViewBag.Title = "Create";
+    }
+
+    <h2>Create</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <div class="form-horizontal">
+        <h4>TBL_Material</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+                @Html.LabelFor(model => model.GrupoArticulos, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.GrupoArticulos, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.GrupoArticulos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.COD_Material, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.COD_Material, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.COD_Material, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Fecha_Cad, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Fecha_Cad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Fecha_Cad, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cantidad_Disponible, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cantidad_Disponible, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Cantidad_Disponible, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Precio, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Precio, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script>
+            $(document).ready(function () {
+                $('#table_id').DataTable({
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ registros por página",
+                        "zeroRecords": "Datos no encontrados",
+                        "info": "Mostrando Página _PAGE_ de _PAGES_",
+                        "infoEmpty": "No hay registros disponibles",
+                        "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                        "search": "Buscar",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                    }
+                });
+            });
+        </script>
+    }*@
+
+
+
+
+@model ProgramaDeRequisas.Models.TBL_Material
+
+@{
+    ViewBag.Title = "Detalles de requisa";
+    string userName = HttpContext.Current.User.Identity.Name;
+    //string last_id = ViewBag.ID;
+}
+@*@model IEnumerable<ProgramaDeRequisas.Models.TBL_Material>
+    @{
+        foreach(var item in Model)
+        {
+            int ultimo_id = item.ID +1;
+        }
+
+     }*@
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*datatables*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+
+
+    <div class="form-horizontal mt-5">
+        @*<h4>@ViewBag.Title</h4>
+            <hr />*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row mb-3">
+            <div class="col-md-12 text-center">
+                <h2>Requisición N°@ViewBag.ID</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="text-left">Fecha de requisición: </label>
+                            <label class="text-right text-primary">
+                                &nbsp;
+                                <script>
+                                    var hoy = new Date();
+                                    var dia = hoy.getDate();
+                                    var mes = hoy.getMonth() + 1;
+                                    var anio = hoy.getFullYear();
+                                    if (dia < 10)
+                                        dia = '0' + dia; //agrega cero si el menor de 10
+                                    if (mes < 10)
+                                        mes = '0' + mes //agrega cero si el menor de 10
+                                    fecha_actual = String(dia + "/" + mes + "/" + anio);
+                                    //fecha_actual = new Date(fecha_actual);
+                                    document.write(fecha_actual);
+                                    console.log(dia)</script>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-left">Solicitante: </label>
+                            <label class="text-right text-primary">&nbsp;@userName</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-left">Id-requisa: </label>
+                            <label class="text-right text-primary">&nbsp;@ViewBag.ID</label>
+                        </div>
+                    </div>
+ 
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="text-left">Centro de costo: </label>
+                            <label class="text-right text-primary">&nbsp;111110-Logistica</label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="text-left">Sociedad: </label>
+                            <label class="text-right text-primary">&nbsp;Farinter</label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="text-left">Estado: </label>
+                            <label class="text-right text-primary">&nbsp;En proceso</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="c-table">
+                        <div class="table-responsive table-stripered ctable-hijo">
+                            <table id="table_id" class="display">
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Descripcion</th>
+                                        <th>Solicitado</th>
+                                        <th>Disponible</th>
+                                        <th>Aprobado</th>
+                                        <th>Creada el</th>
+                                        <th>Total(Lps.)</th>
+                                        <th>Estado</th>
+                                        <th>Observaciones</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@foreach (var item in Model) {*@
+                                    <tr>
+                                        <td>1</td>
+                                        <td>PAPELERIA</td>
+                                        <td id="quantity">2030</td>
+                                        <td id="stock">2006</td>
+                                        <td id="stock">2000</td>
+                                        <td>17/10/2020</td>
+                                        <td>23.00</td>
+                                        <td>Aprobado</td>
+                                        <td id="comentario">
+                                            lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum
+                                        </td>
+                                        <td>
+                                            <div class="form-inline">
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    @*<div class="form-group mt-2">
+                        <div>
+                            <input type="button" id="Registrar2" value="Editar" class="btn btn-success" />
+                            <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+                        </div>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<div class="mt-3">
+    <a href="@Url.Action("Volver a revisión de requisas", "Index")"><i class="fas fa-arrow-circle-left"></i> Volver a revisión de requisas</a>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Editar Requisa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Cantidad solicitada a aprobar: </label>
+                        <input class="form-control" type="number" />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Estado: </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="exampleRadios1">
+                                        Aceptar
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                    <label class="form-check-label" for="exampleRadios2">
+                                        En proceso
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-check disabled">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" />                                    <label class="form-check-label" for="exampleRadios3">
+                                        Rehazar
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check disabled">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option4" disabled>
+                                    <label class="form-check-label" for="exampleRadios4">
+                                        Finalizar
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Observaciones o comentarios: </label>
+                        <textarea id="observacion" name="observacion" class="form-control" rows="5"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Fecha de revisión: </label>
+                        <input class="form-control text-center" id="Fecharev" value="" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*finmodal*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+        $(document).ready(function () {
+            if (parseInt($('#quantity').text()) > parseInt($('#stock').text())) {
+                document.getElementById('stock').style.color = 'red';
+                document.getElementById('stock').style.fontWeight = 'bold';
+            }
+            else {
+                document.getElementById('stock').style.color = 'black';
+            }
+        })
+    </script>
+    <script>
+        var fecha = new Date(); //Fecha actual
+        var mes = fecha.getMonth() + 1; //obteniendo mes
+        var dia = fecha.getDate(); //obteniendo dia
+        var anio = fecha.getFullYear(); //obteniendo año
+        if (dia < 10)
+            dia = '0' + dia; //agrega cero si el menor de 10
+        if (mes < 10)
+            mes = '0' + mes //agrega cero si el menor de 10
+        document.getElementById('Fecharev').value = dia + "-" + mes + "-" + anio;
+    </script>
+}

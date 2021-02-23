@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a5f8cbabc0604876a070545c9514b722" Name="Diagram1">
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Almacenes" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Centros" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Material" Width="1.5" PointX="6.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Material_X_Almacen" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Sociedades" Width="1.5" PointX="0.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Solicitantesfrecuentes" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Almacenes1" ManuallyRouted="false" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Centros" ManuallyRouted="false" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Centros1" ManuallyRouted="false" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Sociedades" ManuallyRouted="false" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Sociedades1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SITEPLUSModel.VSP_Sociedades_Centros_Almacenes" Width="4.125" PointX="9.125" PointY="6.125" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_TipoSolicitante" Width="1.5" PointX="5.125" PointY="3.875" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TSP_Usuarios" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_CECO" Width="1.5" PointX="2.75" PointY="11.875" />
+        <AssociationConnector Association="SITEPLUSModel.FK_ID_Sociedades" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Carrito" Width="1.5" PointX="5.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Roles_Uuarios" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.VSP_usuariosPapeleria" Width="1.5" PointX="7.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Estado_Uuarios" Width="1.5" PointX="9.375" PointY="8.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_UsuariosSolicitantes" Width="1.5" PointX="10.5" PointY="1.875" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_Sociedad" />
+        <AssociationConnector Association="SITEPLUSModel.fk_TBL_TipoSolicitante" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_Materiales_Agregados" Width="1.5" PointX="11.5" PointY="8.75" />
+        <EntityTypeShape EntityType="SITEPLUSModel.TBL_RevisionMat_Agregados" Width="1.5" PointX="9.375" PointY="11.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

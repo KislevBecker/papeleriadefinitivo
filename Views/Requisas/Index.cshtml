@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProgramaDeRequisas.Models.Requisas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p class="mt-5">
+    @Html.ActionLink("Crear nueva requisa", "Create")
+</p>
+
+<h2 class="text-primary mt-2">Historial de requisas</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.descripcion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fecha_requisicion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cantidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.descripcion)
+            1
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_requisicion)
+            hola
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cantidad)
+            hola2
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado)
+            hola3
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.usuario)
+            hola4
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

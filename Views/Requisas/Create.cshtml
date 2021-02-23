@@ -1,0 +1,178 @@
+﻿@model ProgramaDeRequisas.Models.Requisas
+
+@{
+    ViewBag.Title = "Crear requisa";
+}
+
+<h2 class="text-primary mt-5">Crear requisa</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="form-row">
+                        <label><span class="badge badge-pill badge-primary">1</span> Seleccione Sociedad-Centro-Almacén</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("sociedad_Id", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.DropDownList("centro_Id", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.DropDownList("almacen_Id", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="form-row">
+                        <label><span class="badge badge-pill badge-primary">2</span> Seleccione Material e ingrese la cantidad</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.DropDownList("material_Id", new SelectList(string.Empty, "Value", "Text"), "---Seleccione uno---", htmlAttributes: new { @class = "form-control", maxlength = 150 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control", @type = "number", @min = "1", @step = "1", @value = "1" }  })
+                                </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Disponible en almacén</label>
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <input type="submit" id="Registrar" value="Crear DxZ" class="btn btn-success" hidden />
+                <input type="button" id="Registrar2" value="Crear DxZ" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Ir al historial de requisas", "Index")
+</div>
+
+@section Scripts {
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de paises
+            $.getJSON('/TSP_DescuentosxZona/GetPaises', function (data) {
+                $.each(data, function () {
+                    $('#Emp_Id').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de la zona
+            $("#Emp_Id").bind('click', function () {
+                var id = $('select[id=Emp_Id]').val();
+                $('#Zona_Web').empty();
+                $('#Zona_Web').val('');
+
+                $.getJSON('/TSP_DescuentosxZona/GetZona', { emp_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#Zona_Web').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información de nombre de descuento
+            $("#Emp_Id").bind('click', function () {
+                var id = $('select[id=Emp_Id]').val();
+                $('#Descuento_Id').empty();
+                $('#Descuento_Id').val('');
+
+                $.getJSON('/TSP_DescuentosxZona/GetDescto', { emp_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#Descuento_Id').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#sociedad_id').val();
+            var centro_id = $('#centro_id').val();
+            var almacen_id = $('#almacen_id').val();
+            var cantidad = $('#cantidad').val();
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                alert("¡Debe seleccionar una sociedad!");
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                alert("¡Debe seleccionar un centro!");
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                alert("¡Debe seleccionar un descuento!");
+            }
+            else if (cantidad == "" || cantidad == null) {
+                console.log(cantidad);
+                alert("¡El campo de cantidad está vacío, por favor verifique!");
+                 
+            }
+            else if (System.Text.RegularExpressions.Regex.IsMatch(cantidad.Text, "[^0-9]")) {
+                alert("¡Sólo se permiten números!");
+                cantidad.Text = cantidad.Text.Remove(textBox1.Text.Length - 1);
+                if (cantidad < 1) {
+                    console.log(cantidad);
+                    alert("¡La cantidad mínima es de 1 material!");
+                }
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+    </script>
+}

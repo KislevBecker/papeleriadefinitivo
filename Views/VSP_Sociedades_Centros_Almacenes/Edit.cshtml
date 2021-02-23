@@ -1,0 +1,400 @@
+﻿@*@model ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes
+
+    @{
+        ViewBag.Title = "Edit";
+    }
+
+    <h2>Edit</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>VSP_Sociedades_Centros_Almacenes</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.NombreSociedad)
+
+            @Html.HiddenFor(model => model.NombreCentro)
+
+            @Html.HiddenFor(model => model.Id_Almacenes)
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+
+
+
+@model ProgramaDeRequisas.Models.VSP_Sociedades_Centros_Almacenes
+
+@{
+    ViewBag.Title = "Editar requisa";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @*datatables*@
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+
+
+    <div class="form-horizontal mt-5">
+        <h4>@ViewBag.Title</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-row">
+            <label><span class="badge badge-pill badge-secondary">1</span> Sociedad-Centro-Almacén-CeCo previamente seleccionados </label>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("SociedadesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione sociedad---", htmlAttributes: new { @class = "form-control", maxlength = 150, @disabled=true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("CentrosID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione centro---", htmlAttributes: new { @class = "form-control", maxlength = 150, @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("AlmacenesID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione almacén---", htmlAttributes: new { @class = "form-control", maxlength = 150, @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.DropDownList("CeCoID", new SelectList(string.Empty, "Value", "Text"), "---Seleccione CeCo---", htmlAttributes: new { @class = "form-control", maxlength = 150, @disabled = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row mt-3">
+            <label><span class="badge badge-pill badge-secondary">2</span> Edite los materiales que agregó al carrito</label>
+        </div>
+
+        <div class="c-table">
+            <div class="table-responsive table-stripered ctable-hijo">
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Descripcion</th>
+                            <th>Código de material</th>
+                            <th>Grupo</th>
+                            <th>Cantidad a solicitar</th>
+                            <th>Cantidad disponible</th>
+                            <th>Precio variable</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var item in Model) {*@
+                        <tr>
+                            <td>1</td>
+                            <td>PAPELERIA</td>
+                            <td>AS200</td>
+                            <td>2006</td>
+                            <td>
+                                <div class="form-inline">
+                                    <a id="min" style="cursor:pointer;"><i class="fas fa-minus-circle fa-2x fa-lg"></i></a>
+                                    <input name="quantity" id="quantity" value="1" size="4" readonly class="form-control text-center" />
+                                    <a id="plus" style="cursor:pointer;"><i class="fas fa-plus-circle fa-2x fa-lg"></i></a>
+                                </div>
+
+                            </td>
+                            <td>50</td>
+                            <td>L. 123.00</td>
+
+                            <td>
+                                <div class="form-inline">
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        @*<button type="button" class="btn btn-success" onclick="addToCart()"><i class="fas fa-shopping-cart"></i></button>*@
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" ><i class="fas fa-trash-alt"></i></button>
+                                    </div>
+                                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>LIMPIEZA</td>
+                        <td>BD600</td>
+                        <td>2009</td>
+                        <td>
+                            <div class="form-inline">
+                                <a id="min" style="cursor:pointer;"><i class="fas fa-minus-circle fa-2x fa-lg"></i></a>
+                                <input name="quantity" id="quantity" value="1" size="4" readonly class="form-control text-center" />
+                                <a id="plus" style="cursor:pointer;"><i class="fas fa-plus-circle fa-2x fa-lg"></i></a>
+                            </div>
+
+                        </td>
+                        <td>10</td>
+                        <td>L. 400.00</td>
+                        @*}*@
+                    <td>
+                        <div class="form-inline">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                @*<button type="button" class="btn btn-success" onclick="addToCart()"><i class="fas fa-shopping-cart"></i></button>*@
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="form-group mt-2">
+            <div>
+                <div class="form-row mb-1">
+                    <label><span class="badge badge-pill badge-secondary">3</span> Una vez que haya finalizado su edición en esta requisa, proceda a guardar los cambios para actualizar</label>
+                </div>
+                <div class="form-row">
+                    <label>Título o descripción de la requisa</label>
+                    <input class="form-control mb-2" id="requisa_name" name="requisa_name" />
+                </div>
+                <input type="button" id="Registrar2" value="Editar requisa" class="btn btn-success" />
+                <input type="submit" id="Registrar" value="Iniciar" class="btn btn-success" hidden />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Volver al historial de requisas", "Index")
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label>Eliminar</label>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <label>Está seguro/a de eliminar este material del carrito?</label>
+                <br />
+                <i class="far fa-question-circle fa-7x fa-lg text-primary mt-1"></i>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="deleteFromCart()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*fin modal*@
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Traer información de Sociedades
+            $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetSociedades', function (data) {
+                $.each(data, function () {
+                    $('#SociedadesID').append('<option value=' +
+                        this.Value + '>' + this.Text + '</option>');
+                });
+            });
+
+            //Traer información de Centtos
+            $("#SociedadesID").bind('click', function () {
+                var id = $('select[id=SociedadesID]').val();
+                $('#CentrosID').empty();
+                $('#CentrosID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetCentros', { sociedad_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#CentrosID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+
+            //Traer información Almacenes
+            $("#CentrosID").bind('click', function () {
+                var id = $('select[id=CentrosID]').val();
+                $('#AlmacenesID').empty();
+                $('#AlmacenesID').val('');
+
+                $.getJSON('/VSP_Sociedades_Centros_Almacenes/GetAlmacenes', { centro_id: id }, function (data) {
+                    $.each(data, function () {
+                        $('#AlmacenesID').append('<option value=' +
+                            this.Value + '>' + this.Text + '</option>');
+                    });
+                });
+            });
+        });
+
+
+        //Agregar productos al carrito
+        function addToCart() {
+            swal({
+                title: "Artículo Guardado!",
+                text: "Su artículo ha sido agregado al carrito.",
+                icon: "success", //built in icons: success, warning, error, info
+                timer: 3000, //timeOut for auto-close
+            });
+            //$('#exampleModal').modal('hide');
+            //swal({
+            //    title: "CANTIDAD SOBREPASADA",
+            //    text: "No puede solicitar mas de lo disponible.",
+            //    icon: "warning", //built in icons: success, warning, error, info
+            //    //timer: 3000, //timeOut for auto-close
+            //});
+            //swal({
+            //    title: "Ha ocurrido un error",
+            //    text: "Su artículo no se ha podido agregar al carrito, intente de nuevo.",
+            //    icon: "error", //built in icons: success, warning, error, info
+            //    //timer: 3000, //timeOut for auto-close
+            //});
+        }
+
+
+
+        //Agregar productos al carrito
+        function deleteFromCart() {
+            //swal({
+            //    title: "Artículo Eliminado!",
+            //    text: "Su artículo ha sido eliminado del carrito.",
+            //    icon: "success", //built in icons: success, warning, error, info
+            //    timer: 3000, //timeOut for auto-close
+            //});
+            //$('#exampleModal').modal('hide');
+            swal({
+                title: "Ha ocurrido un error",
+                text: "Su artículo no ha podido eliminarse del carrito, por favor intente de nuevo.",
+                icon: "error", //built in icons: success, warning, error, info
+                //timer: 3000, //timeOut for auto-close
+            });
+            $('#exampleModal').modal('hide');
+        }
+
+        //input de cantidad a solicitar
+        $('#min').click(function () {
+            if ($('#quantity').val() != 1)
+                $('#quantity').val(parseInt($('#quantity').val()) - 1);
+        });
+        $('#plus').click(function () {
+            $('#quantity').val(parseInt($('#quantity').val()) + 1);
+        });
+        //fin input
+
+        $("#Registrar2").click(function () {
+            // Si los campos estan vacios después de una validación:
+
+            var sociedad_id = $('#SociedadesID').val();
+            var centro_id = $('#CentrosID').val();
+            var almacen_id = $('#AlmacenesID').val();
+            var ceco_id = $('#CeCoID').val();
+            var titulo = $('#requisa_name').val();
+
+            console.log("sociedad_id " + sociedad_id);
+            console.log("centro_id " + centro_id);
+            console.log("almacen_id " + almacen_id);
+            console.log("ceco_id " + ceco_id);
+            console.log("requisa_name " + titulo);
+
+            if (sociedad_id == "" || sociedad_id == null) {
+                console.log(sociedad_id);
+                swal({
+                    title: "Debe seleccionar una sociedad",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (centro_id == "" || centro_id == null) {
+                console.log(centro_id);
+                swal({
+                    title: "Debe seleccionar un centro",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (almacen_id == "" || almacen_id == null) {
+                console.log(almacen_id);
+                swal({
+                    title: "Debe seleccionar un almacén.",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (ceco_id == "" || ceco == null) {
+                console.log(ceco);
+                swal({
+                    title: "Debe seleccionar un centro de costo",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else if (titulo == "" || titulo == null) {
+                console.log(titulo);
+                swal({
+                    title: "Debe dar una descripcion para guardar la requisa",
+                    icon: "error", //built in icons: success, warning, error, info
+                });
+            }
+            else {
+                console.log("Entro al click")
+                $("#Registrar").click();
+            }
+
+        });
+    </script>
+}

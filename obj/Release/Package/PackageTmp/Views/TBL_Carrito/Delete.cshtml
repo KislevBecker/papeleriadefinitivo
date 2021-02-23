@@ -1,0 +1,80 @@
+﻿@model ProgramaDeRequisas.Models.TBL_Carrito
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TBL_Carrito</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_Material)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_Material)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Pedida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Pedida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Aprobada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Aprobada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Disponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Disponible)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

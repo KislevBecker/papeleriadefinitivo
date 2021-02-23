@@ -1,0 +1,186 @@
+﻿@*@model IEnumerable<ProgramaDeRequisas.Models.TBL_Carrito>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COD_Material)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad_Pedida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad_Aprobada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad_Disponible)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COD_Material)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad_Pedida)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad_Aprobada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad_Disponible)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id_Carrito }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id_Carrito }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id_Carrito })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+
+
+
+@model IEnumerable<ProgramaDeRequisas.Models.TBL_Carrito>
+
+@{
+    ViewBag.Title = "Listado de artículos agregados al carrito";
+}
+
+@*datatables*@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<h2 class="text-primary mt-5">@ViewBag.Title</h2>
+
+@*<p>@Html.ActionLink("Create New", "Create")</p>*@
+
+<div class="c-table">
+    <div class="table-responsive table-stripered ctable-hijo">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Código de material</th>
+                    <th>Descripción</th>
+                    <th>Cantidad pedida</th>
+                    <th>Cantidad disponible</th>
+                    <th>Precio unitario (Lps.)</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id_Carrito)
+                        </td>
+                        <td class="text-center">
+                            @Html.DisplayFor(modelItem => item.COD_Material)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Descripcion)
+                        </td>
+                        <td id="quantity" class="text-right">
+                            @if ((item.Cantidad_Pedida.Value > item.Cantidad_Disponible.Value) && (item.Cantidad_Aprobada.Value > 0))
+                            {
+                                @Html.DisplayFor(modelItem => item.Cantidad_Aprobada)
+                            }
+
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.Cantidad_Pedida)
+                            }
+                        </td>
+
+                        @if (item.Cantidad_Pedida.Value > item.Cantidad_Disponible.Value)
+                        {
+                            <td class="text-danger text-right">
+                                * @Html.DisplayFor(modelItem => item.Cantidad_Disponible)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-right">
+                                @Html.DisplayFor(modelItem => item.Cantidad_Disponible)
+                            </td>
+                        }
+                        <td class="text-right">
+                            @Html.DisplayFor(modelItem => item.Precio)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Edit", new { id = item.Id_Carrito }) |
+                            @Html.ActionLink("Detalles", "Details", new { id = item.Id_Carrito }) |
+                            @Html.ActionLink("Eliminar", "Delete", new { id = item.Id_Carrito })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                },
+                //dom: 'Bfrtip',
+                //buttons: [
+                //    'copy', 'excel', 'pdf'
+                //]
+            });
+        });
+
+    </script>
+}

@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SITEPLUSModel1StoreContainer" CdmEntityContainer="SITEPLUSEntities">
+    <EntitySetMapping Name="TBL_Almacenes">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Almacenes">
+        <MappingFragment StoreEntitySet="TBL_Almacenes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Centros" ColumnName="Id_Centros" />
+          <ScalarProperty Name="Id_Almacenes" ColumnName="Id_Almacenes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Carrito">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Carrito">
+        <MappingFragment StoreEntitySet="TBL_Carrito">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Carrito" ColumnName="Id_Carrito" />
+          <ScalarProperty Name="COD_Material" ColumnName="COD_Material" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Cantidad_Pedida" ColumnName="Cantidad_Pedida" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Centros">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Centros">
+        <MappingFragment StoreEntitySet="TBL_Centros">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Sociedades" ColumnName="Id_Sociedades" />
+          <ScalarProperty Name="Id_Centros" ColumnName="Id_Centros" />
+          <ScalarProperty Name="NombreCentro" ColumnName="NombreCentro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Material">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Material">
+        <MappingFragment StoreEntitySet="TBL_Material">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GrupoArticulos" ColumnName="GrupoArticulos" />
+          <ScalarProperty Name="COD_Material" ColumnName="COD_Material" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Fecha_Cad" ColumnName="Fecha_Cad" />
+          <ScalarProperty Name="Cantidad_Disponible" ColumnName="Cantidad_Disponible" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Material_X_Almacen">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Material_X_Almacen">
+        <MappingFragment StoreEntitySet="TBL_Material_X_Almacen">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Centros" ColumnName="Id_Centros" />
+          <ScalarProperty Name="Id_Almacenes" ColumnName="Id_Almacenes" />
+          <ScalarProperty Name="COD_Material" ColumnName="COD_Material" />
+          <ScalarProperty Name="Lote" ColumnName="Lote" />
+          <ScalarProperty Name="Lote_Prov" ColumnName="Lote_Prov" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Requisicion">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Requisicion">
+        <MappingFragment StoreEntitySet="TBL_Requisicion">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_MatXAlm" ColumnName="Id_MatXAlm" />
+          <ScalarProperty Name="Id_Requisicion" ColumnName="Id_Requisicion" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Sociedades">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Sociedades">
+        <MappingFragment StoreEntitySet="TBL_Sociedades">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Sociedades" ColumnName="Id_Sociedades" />
+          <ScalarProperty Name="NombreSociedad" ColumnName="NombreSociedad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TBL_Solicitantesfrecuentes">
+      <EntityTypeMapping TypeName="SITEPLUSModel1.TBL_Solicitantesfrecuentes">
+        <MappingFragment StoreEntitySet="TBL_Solicitantesfrecuentes">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Id_Sociedades" ColumnName="Id_Sociedades" />
+          <ScalarProperty Name="SolicitanteFrecuente1" ColumnName="SolicitanteFrecuente1" />
+          <ScalarProperty Name="SolicitanteFrecuente2" ColumnName="SolicitanteFrecuente2" />
+          <ScalarProperty Name="SolicitanteFrecuente3" ColumnName="SolicitanteFrecuente3" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

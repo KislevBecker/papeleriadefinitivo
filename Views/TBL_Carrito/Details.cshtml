@@ -1,0 +1,175 @@
+﻿@model ProgramaDeRequisas.Models.TBL_Carrito
+
+
+@{
+    ViewBag.Title = "Detalles del item";
+}
+@*datatables*@
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+
+<h2>ViewBag.Title</h2>
+
+<div>
+    <hr />
+    @*<dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_Material)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_Material)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Pedida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Pedida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Aprobada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Aprobada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad_Disponible)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad_Disponible)
+        </dd>
+
+    </dl>*@
+</div>
+
+<div class="c-table">
+    <div class="table-responsive table-stripered ctable-hijo">
+        <table id="table_id" class="display">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Código de material</th>
+                    <th>Descripción</th>
+                    <th>Cantidad pedida</th>
+                    <th>Cantidad disponible</th>
+                    <th>Precio unitario (Lps.)</th>
+                    <th>Total (Lps.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.ID)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(model => model.COD_Material)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Descripcion)
+                    </td>
+                    <td id="quantity" class="text-right">
+                        @if ((Model.Cantidad_Pedida.Value > Model.Cantidad_Disponible.Value) && (Model.Cantidad_Aprobada.Value > 0))
+                        {
+                            @Html.DisplayFor(model => model.Cantidad_Aprobada)
+                        }
+
+                        else
+                        {
+                            @Html.DisplayFor(model => model.Cantidad_Pedida)
+                        }
+                    </td>
+
+                    @if (Model.Cantidad_Pedida.Value > Model.Cantidad_Disponible.Value)
+                    {
+                        <td class="text-danger text-right">
+                            * @Html.DisplayFor(model => model.Cantidad_Disponible)
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-right">
+                            @Html.DisplayFor(model => model.Cantidad_Disponible)
+                        </td>
+                    }
+                    <td class="text-right" id="precio">
+                        @Html.DisplayFor(model => model.Precio)
+                    </td>
+                    <td id="total">
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Editar Item", "Edit", new { id = Model.Id_Carrito }) |
+    @Html.ActionLink("Regresar a lista del carrito", "Index")
+</p>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    @*para iniciar el datatable*@
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "Datos no encontrados",
+                    "info": "Mostrando Página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay registros disponibles",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                },
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            var cantidad = $(document).getElementbyId('#quantity').text();
+            var monto = $(document).getElementbyId('#precio').text();
+            var totals = cantidad * monto;
+            console.log(totals);
+        )}
+    </script>
+}
